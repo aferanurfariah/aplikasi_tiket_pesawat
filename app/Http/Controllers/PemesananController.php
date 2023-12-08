@@ -22,10 +22,12 @@ class PemesananController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Pemesanan $pemesanan, Penumpang $penumpang, Rute $rute)
+    public function create()
     {
+        $pemesanan = Pemesanan::all();
         $penumpang = Penumpang::all();
-        return view('pemesanan.create', compact('penumpang', 'pemesanan'));
+        $rute = Rute::all();
+        return view('pemesanan.create', compact('penumpang', 'pemesanan','rute'));
     }
 
     /**
@@ -34,6 +36,7 @@ class PemesananController extends Controller
     public function store(Request $request, Pemesanan $pemesanan)
     {
         //
+        // dd($request);
         $request->validate([
 
             'penumpangs_id' => 'required',
@@ -51,7 +54,7 @@ class PemesananController extends Controller
 
         $pemesanan = new Pemesanan;
         $pemesanan->penumpangs_id = $request->penumpangs_id;
-        $pemesanan->rute_id = $request->rutes_id;
+        $pemesanan->rute_id = $request->rute_id;
         $pemesanan->kode_pemesanan = $request->kode_pemesanan;
         $pemesanan->jumlah_kursi_pemesanan = $request->jumlah_kursi_pemesanan;
         $pemesanan->tanggal_berangkat = $request->tanggal_berangkat;

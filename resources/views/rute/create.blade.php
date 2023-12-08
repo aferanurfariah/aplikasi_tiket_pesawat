@@ -2,6 +2,7 @@
 @section('title','Rute')
 @section('content')
  <section class="content-header">
+    {{-- {{dd($pesawat)}} --}}
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -16,14 +17,11 @@
       </div>
     </div><!-- /.container-fluid -->
   </section>
-
   <section class="content">
     <div class="container-fluid">
         <div class="card card-default">
             <div class="card-header">
               <h3 class="card-title">From Pesawat</h3>
-              <form action="{{ route('rute.store') }}" method="POST">
-                @csrf
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
@@ -34,49 +32,52 @@
               </div>
             </div>
             <!-- /.card-header -->
+            <form action="{{ route('rute.store')}}" method="POST">
+            @csrf
             <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Tujuan</label>
-                        <select class="form-control select2" style="width: 100%;" name="tempat_pemesanan">
-                          <option selected disabled></option>
-                          <option>Traveling</option>
-                          <option>Mudik</option>
-                        </select>
-                      </div>
-                  <!-- /.form-group -->
-                  <div class="form-group">
-                    <label for="rute_awal">Rute Awal</label>
-                    <input type="text" class="form-control" name="rute_awal" id="rute_awal" placeholder="Masukan rute">
-                  </div>
-                  <!-- /.form-group -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pesawat">Pesawat</label>
+                            <select name="pesawat_id" id="pesawat" class="form-control">
+                                <option disabled selected>-- Pilih Salah Satu--</option>
+                                @forelse ($pesawat as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_maskapai }}</option>
+                                @empty
+                                    <option>--- Data Penumpang kosong ---</option>
+                                @endforelse
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tujuan">Tujuan</label>
+                            <select class="form-control" name="tujuan">
+                                <option>Traveling</option>
+                                <option>Mudik</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rute_awal">Rute Awal</label>
+                            <input type="text" class="form-control" name="rute_awal" id="rute_awal" placeholder="Masukkan rute">
+                        </div>
+                    </div>
+                    <!-- /.col -->
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="rute_akhir">Rute Akhir</label>
+                            <input type="text" class="form-control" name="rute_akhir" id="rute_akhir" placeholder="Masukkan rute">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="harga">Harga</label>
+                            <input type="text" class="form-control" name="harga" id="harga" placeholder="Masukkan harga">
+                        </div>
+                    </div>
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="rute_akhir">Rute Akhir</label>
-                        <input type="text" class="form-control" name="rute_akhir" id="rute_akhir" placeholder="Masukan rute">
-                      </div>
-                  <!-- /.form-group -->
-                  <div class="form-group">
-                    <label for="harga">Harga</label>
-                    <input type="text" class="form-control" name="harga" id="harga" placeholder="Masukan harga">
-                  </div>
-                  <!-- /.form-group -->
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-
-                  <!-- /.form-group -->
-              </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-
-
-                <!-- /.form-group -->
+                <!-- /.row -->
             </div>
 
             <!-- /.card-body -->

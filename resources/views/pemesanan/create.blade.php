@@ -38,20 +38,27 @@
               <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="genre">Penumpang</label>
-                        <select name="penumpangs_id" id="genre" class="form-control">
+                        <label for="penumpang">Penumpang</label>
+                        <select name="penumpangs_id" id="penumpang" class="form-control">
                           <option disabled selected>-- Pilih Salah Satu--</option>
                           @forelse ($penumpang as $item)
-                            <option value="{{ $item->penumpangs_id }}">{{ $item->nama_penumpang }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nama_penumpang }}</option>
                           @empty
                             <option>--- Data Penumpang kosong ---</option>
-                          @endforelse 
+                          @endforelse
                         </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="penumpangs_id">Id rute</label>
-                        <input type="text" class="form-control" name="penumpangs_id" id="rute_id" placeholder="Masukan id">
-                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="penumpang">Id_Rute</label>
+                        <select name="rute_id" id="penumpang" class="form-control">
+                          <option disabled selected>-- Pilih Salah Satu--</option>
+                          @forelse ($rute as $item)
+                            <option value="{{ $item->id }}">{{ $item->tujuan }}</option>
+                          @empty
+                            <option>--- Data Penumpang kosong ---</option>
+                          @endforelse
+                        </select>
+                    </div>
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label for="jumlah_kursi_pemesanan">Jumlah Kursi Pemesanan</label>

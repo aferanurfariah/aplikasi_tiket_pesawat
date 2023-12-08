@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Rute;
+use App\Models\Pesawat;
 
 class RuteController extends Controller
 {
@@ -19,10 +20,11 @@ class RuteController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Rute $rute)
+    public function create(Rute $rute, Pesawat $pesawat)
     {
         $rute = Rute::all();
-        return view('rute.create');
+        $pesawat = Pesawat::all();
+        return view('rute.create', compact('rute','pesawat'));
     }
 
     /**
@@ -30,23 +32,22 @@ class RuteController extends Controller
      */
     public function store(Request $request , Rute $rute)
     {
-        //dd($request);
+        // dd($request);
         $request->validate([
+            'pesawat_id' => 'required',
             'tujuan' => 'required',
             'rute_awal' => 'required',
             'rute_akhir' => 'required',
             'harga' => 'required',
-
         ]);
 
-        $rute = new rute;
-
-        $rute->tujuan = $request->tujuan;
-        $rute->rute_awal = $request->rute_awal;
-        $rute->rute_akhir = $request->rute_akhir;
-        $rute->harga = $request->harga;
-
-        $rute->save();
+        $rute::create([
+        'pesawat_id' => $request['pesawat_id'],
+        'tujuan' => $request['tujuan'],
+        'rute_awal' => $request['rute_awal'],
+        'rute_akhir' => $request['rute_akhir'],
+        'harga' => $request['harga'],
+        ]);
 
         return redirect()->route('rute.index');
 
